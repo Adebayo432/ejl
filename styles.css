@@ -35,14 +35,22 @@
 .border-b {
     position: sticky;
     top: 0;
+    padding: 0px;
+    margin: 0;
     right: 0;
     background-color: white;
     left: 0;
 }
 
+.border-b div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
 .buy-now-btn {
     background-color: blue;
-    color: black;
+    color: white;
     padding: 10px;
     padding-inline: 20px;
     border-radius: 9px;
@@ -52,6 +60,8 @@
 .brand-name {
     color: blue;
     font-size: 2rem;
+    margin: 0;
+    padding: 0;
 }
 
 .footer {
