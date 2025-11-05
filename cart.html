@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cart — EJ Luxe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { theme: { extend: { colors: { ejblue: '#1565D8' } } } };</script>
+</head>
+<body class="bg-white text-ejblack min-h-screen">
+  <header class="border-b">
+    <div class="max-w-5xl mx-auto flex items-center justify-between p-6">
+      <a href="index.html" class="logo-font text-2xl text-ejblack">EJ Luxe</a>
+    </div>
+  </header>
+  <main class="max-w-4xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Your Cart</h1>
+    <div id="cartList" class="space-y-4"></div>
+    <div class="mt-6 flex items-center justify-between">
+      <div class="text-lg font-semibold">Total:</div>
+      <div class="text-2xl font-bold">₦<span id="cartTotal">0</span></div>
+    </div>
+    <div class="mt-6 flex gap-3">
+      <a href="checkout.html" class="bg-ejblue text-white px-4 py-2 rounded-md">Proceed to Checkout</a>
+      <button id="clearCartBtn" class="px-4 py-2 border rounded-md">Clear cart</button>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+  <script>document.getElementById('clearCartBtn').addEventListener('click', ()=>{ clearCart(); renderCart(); });</script>
+</body>
+</html>

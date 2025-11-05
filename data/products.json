@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "POSITHIEF T-shirt",
+    "price": 24999,
+    "description": "250g luxury T-shirt",
+    "images": [
+      "assets/t1.jpg",
+      "assets/t2.jpg",
+      "assets/t3.jpg",
+      "assets/t4.jpg"
+    ]
+  }
+]

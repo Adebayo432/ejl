@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>POSITHIEF — EJ Luxe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { theme: { extend: { colors: { ejblue: '#1565D8', ejblack: '#0B0B0B' } } } };</script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial;
+    }
+
+    .logo-font {
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-ejblack min-h-screen">
+  <header class="border-b">
+    <div class="max-w-5xl mx-auto flex items-center justify-between p-6">
+      <a href="index.html" class="logo-font text-2xl text-ejblack">EJ Luxe</a>
+      <div><a href="cart.html">Cart <span id="cartCountBadge2"
+            class="ml-1 bg-ejblue text-white text-xs px-2 py-0.5 rounded">0</span></a></div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div>
+        <div class="overflow-hidden rounded-md">
+          <img id="mainImg" src="assets/t1.jpg" alt="POSITHIEF" class="w-full h-96 object-cover rounded-md shadow-md">
+        </div>
+        <div class="mt-4 flex gap-3">
+          <img onclick="setMain('assets/t1.jpg')" src="assets/t1.jpg"
+            class="w-20 h-20 object-cover rounded-md cursor-pointer">
+          <img onclick="setMain('assets/t2.jpg')" src="assets/t2.jpg"
+            class="w-20 h-20 object-cover rounded-md cursor-pointer">
+          <img onclick="setMain('assets/t3.jpg')" src="assets/t3.jpg"
+            class="w-20 h-20 object-cover rounded-md cursor-pointer">
+          <img onclick="setMain('assets/t4.jpg')" src="assets/t4.jpg"
+            class="w-20 h-20 object-cover rounded-md cursor-pointer">
+        </div>
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold logo-font">POSITHIEF T-shirt</h1>
+        <div class="text-2xl text-ejblue font-bold mt-2">₦24,999</div>
+        <p class="text-gray-700 mt-4">250g luxury T-shirt</p>
+        <div class="mt-6 flex gap-3">
+          <button id="addToCartBtn" class="bg-ejblue text-white px-4 py-2 rounded-md">Add to cart</button>
+          <a href="checkout.html" class="px-4 py-2 border rounded-md">Buy now</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <main class="max-w-4xl mx-auto p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div>
+        <div class="overflow-hidden rounded-md">
+          <img id="mainImg" src="assets/t5.jpg.jpg" alt="POSITHIEF"
+            class="w-full h-96 object-cover rounded-md shadow-md">
+        </div>
+        <div class="mt-4 flex gap-3">
+          <img onclick="setMain('assets/t5.jpg.jpg')" src="assets/t5.jpg.jpg"
+            class="w-20 h-20 object-cover rounded-md cursor-pointer">
+          <img onclick="setMain('assets/t6.jpg.jpg')" src="assets/t6.jpg.jpg"
+            class="w-20 h-20 object-cover rounded-md cursor-pointer">
+          <img onclick="setMain('assets/t7.jpg.jpg')" src="assets/t7.jpg.jpg"
+            class="w-20 h-20 object-cover rounded-md cursor-pointer">
+          <img onclick="setMain('assets/t8.jpg.jpg')" src="assets/t8.jpg.jpg"
+            class="w-20 h-20 object-cover rounded-md cursor-pointer">
+        </div>
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold logo-font">POSITHIEF SnapBack</h1>
+        <div class="text-2xl text-ejblue font-bold mt-2">₦14,999</div>
+        <p class="text-gray-700 mt-4">Adjustable SnapBack</p>
+        <div class="mt-6 flex gap-3">
+          <button id="addToCartBtn" class="bg-ejblue text-white px-4 py-2 rounded-md">Add to cart</button>
+          <a href="checkout.html" class="px-4 py-2 border rounded-md">Buy now</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t mt-12">
+    <div class="max-w-5xl mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+      <div>© EJ Luxe</div>
+      <div>Follow us on TikTok: <a href="https://www.tiktok.com/@Dripped_in_ejl" target="_blank"
+          class="text-ejblue">@Dripped_in_ejl</a></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    function setMain(src) { document.getElementById('mainImg').src = src; }
+    document.getElementById('addToCartBtn').addEventListener('click', () => { addToCart(1); alert('Added to cart'); });
+  </script>
+</body>
+
+</html>
