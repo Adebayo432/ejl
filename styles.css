@@ -1,0 +1,63 @@
+#whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: -200px;
+    /* Start off-screen */
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background-color: #25D366;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: right 0.5s ease, transform 0.3s, background-color 0.3s;
+}
+
+#whatsapp-button:hover {
+    transform: scale(1.05);
+    background-color: #20b358;
+}
+
+#whatsapp-button img {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+#whatsapp-text {
+    font-size: 14px;
+}
+
+.border-b {
+    position: sticky;
+    top: 0;
+    right: 0;
+    background-color: white;
+    left: 0;
+}
+
+.buy-now-btn {
+    background-color: blue;
+    color: black;
+    padding: 10px;
+    padding-inline: 20px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.brand-name {
+    color: blue;
+    font-size: 2rem;
+}
+
+.footer {
+    background-color: rgb(88, 88, 236);
+}
+
+.footer a {
+    color: white;
+}
