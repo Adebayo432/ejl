@@ -31,10 +31,7 @@
       <nav class="hidden md:flex items-center gap-6 text-sm text-gray-700">
         <a href="#about" class="hover:text-ejblue">About</a>
       </nav>
-      <div class="flex items-center gap-4">
-        <a href="cart.html" class="text-sm">Cart <span id="cartCountBadge"
-            class="ml-1 bg-ejblue text-white text-xs px-2 py-0.5 rounded">0</span></a>
-      </div>
+
     </div>
   </header>
 
@@ -54,7 +51,7 @@
         <div class="flex gap-4 items-center">
           <div class="mt-6 flex gap-3">
 
-            <a href="https://wa.me/qr/KLZWL5GH25URG1" class="px-4 py-2 border rounded-md">Buy now</a>
+
             <span class="text-xl font-semibold">₦24,999</span>
           </div>
 
@@ -80,7 +77,8 @@
           <div class="mt-3 text-xl font-bold">₦24,999</div>
           <p class="text-gray-700 mt-4">250g luxury T-shirt</p>
           <div class="mt-6 flex gap-3">
-            <button id="addHeroBtn" class="bg-ejblue text-white px-4 py-2 rounded-md">Add to cart</button>
+            <a href="https://wa.me/2347012357572?text=Hello%2C%20I%20texted%20you%20from%20your%20website%2C%20I%20want%20to%20buy%20the%20POSITHIEF%20T-Shirt
+" target="_blank" class="px-4 py-2 border rounded-md">Buy now</a>
 
           </div>
         </div>
@@ -96,7 +94,7 @@
           details,
           maximum presence.</p>
         <div class="flex gap-4 items-center">
-          <a href="https://wa.me/qr/KLZWL5GH25URG1" class="px-4 py-2 border rounded-md">Buy now</a>
+
           <span class="text-xl font-semibold">₦14,999</span>
         </div>
       </div>
@@ -121,7 +119,8 @@
           <div class="mt-3 text-xl font-bold">₦14,999</div>
           <p class="text-gray-700 mt-4"> Adjustable Luxury SnapBack</p>
           <div class="mt-6 flex gap-3">
-            <button id="addHeroBtn" class="bg-ejblue text-white px-4 py-2 rounded-md">Add to cart</button>
+            <a href="https://wa.me/2347012357572?text=Hello%2C%20I%20texted%20you%20from%20your%20website%2C%20I%20want%20to%20buy%20the%20POSITHIEF%20SnapBack"
+              target="_blank" class="px-4 py-2 border rounded-md">Buy now</a>
           </div>
         </div>
       </div>
@@ -137,7 +136,7 @@
           details,
           maximum presence.</p>
         <div class="flex gap-4 items-center">
-          <a href="https://wa.me/qr/KLZWL5GH25URG1" class="px-4 py-2 border rounded-md">Buy now</a>
+
           <span class="text-xl font-semibold">₦9,999</span>
         </div>
       </div>
@@ -162,7 +161,8 @@
           <div class="mt-3 text-xl font-bold">₦9,999</div>
           <p class="text-gray-700 mt-4"> Adjustable Luxury Trucker Cap</p>
           <div class="mt-6 flex gap-3">
-            <button id="addHeroBtn" class="bg-ejblue text-white px-4 py-2 rounded-md">Add to cart</button>
+            <a href="https://wa.me/2347012357572?text=Hello%2C%20I%20texted%20you%20from%20your%20website%2C%20I%20want%20to%20buy%20the%20POSITHIEF%20Trucker%20Cap"
+              target="_blank" class="px-4 py-2 border rounded-md">Buy now</a>
 
           </div>
         </div>
@@ -180,7 +180,7 @@
           details,
           maximum presence.</p>
         <div class="flex gap-4 items-center">
-          <a href="https://wa.me/qr/KLZWL5GH25URG1" class="px-4 py-2 border rounded-md">Buy now</a>
+
           <span class="text-xl font-semibold">₦16,999</span>
         </div>
       </div>
@@ -205,19 +205,83 @@
           <div class="mt-3 text-xl font-bold">₦16,999</div>
           <p class="text-gray-700 mt-4"> Full stone adjustable SnapBack</p>
           <div class="mt-6 flex gap-3">
-            <button id="addHeroBtn" class="bg-ejblue text-white px-4 py-2 rounded-md">Add to cart</button>
+            <a href="https://wa.me/2347012357572?text=Hello%2C%20I%20texted%20you%20from%20your%20website%2C%20I%20want%20to%20buy%20the%20Full%20Adjustable%20POSITHIEF%20SnapBack"
+              target="_blank" class="px-4 py-2 border rounded-md">Buy now</a>
 
           </div>
         </div>
       </div>
     </section>
   </main>
+  <!-- WhatsApp Sliding Button -->
+  <a href="https://wa.me/2347012357572?text=Hello%2C%20I%20texted%20you%20from%20your%20website%2C%20I%20need
+" target="_blank" id="whatsapp-button">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Chat on WhatsApp">
+    <span id="whatsapp-text">Chat with us</span>
+  </a>
+
+  <!-- Styles -->
+  <style>
+    #whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: -200px;
+      /* Start off-screen */
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      background-color: #25D366;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 50px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: right 0.5s ease, transform 0.3s, background-color 0.3s;
+    }
+
+    #whatsapp-button:hover {
+      transform: scale(1.05);
+      background-color: #20b358;
+    }
+
+    #whatsapp-button img {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+    }
+
+    #whatsapp-text {
+      font-size: 14px;
+    }
+  </style>
+
+  <!-- Script to Slide In -->
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('whatsapp-button').style.right = '20px';
+      }, 3000); // 3 seconds delay
+    });
+  </script>
+
+
+
+
+
 
   <footer class="border-t mt-12">
     <div class="max-w-5xl mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-      <div>© EJ Luxe — Crafted with care</div>
+      <div>EJ Luxe — Crafted with care</div>
       <div>Follow us on TikTok: <a href="https://www.tiktok.com/@ejluxe0?_r=1&_t=ZS-918zcvfg3ev" target="_blank"
           class="text-ejblue">@Dripped_in_ejl</a></div>
+      <div class="f-t">
+        <p>For job enquiries, contact herdeybharyour@gmail.com</p>
+        <p>Copyright © 2025 | Developed by <a
+            href="https://www.linkedin.com/in/ismail-adam-1b9a0537b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Adebayo
+          </a>
+      </div>
     </div>
   </footer>
 
