@@ -118,9 +118,11 @@ body.bg-white {
     padding: 0px;
     margin: 0;
     right: 0;
-    background-color: white;
+    /* Soft blue gradient to match aesthetic */
+    background: linear-gradient(180deg, #ecf2ff 0%, #f6f9ff 100%);
     left: 0;
     z-index: 40;
+    box-shadow: 0 1px 0 rgba(12, 74, 110, 0.08);
 }
 
 .border-b div {
