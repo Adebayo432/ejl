@@ -24,7 +24,7 @@ async function loadProducts() {
         name: "POSITHIEF SnapBack",
         price: 14999,
         description: "Adjustable Luxury SnapBack crafted for comfort and confident style. Minimal details, maximum presence.",
-        images: ["assets/t5.jpg.jpg", "assets/t6.jpg.jpg", "assets/t7.jpg.jpg", "assets/t8.jpg.jpg"]
+        images: ["assets/t5.jpg", "assets/t6.jpg", "assets/t7.jpg", "assets/t8.jpg"]
       },
       {
         id: 3,
@@ -62,6 +62,14 @@ function addToCart(id) {
 
   // Show notification
   showNotification('Added to cart');
+
+  // Bounce floating cart
+  const fab = document.querySelector('.floating-cart');
+  if (fab) {
+    fab.classList.remove('bounce');
+    void fab.offsetWidth;
+    fab.classList.add('bounce');
+  }
 }
 
 function getCartItemsDetailed() {
@@ -91,6 +99,7 @@ function updateBadges() {
   const totalQty = cart.reduce((s, i) => s + i.qty, 0);
   const badgeEl = document.getElementById('cartCountBadge');
   const badgeElMobile = document.getElementById('cartCountBadgeMobile');
+  const floatingBadge = document.getElementById('floatingCartBadge');
   if (badgeEl) {
     badgeEl.textContent = totalQty;
     badgeEl.style.display = totalQty > 0 ? 'flex' : 'none';
@@ -98,6 +107,10 @@ function updateBadges() {
   if (badgeElMobile) {
     badgeElMobile.textContent = totalQty;
     badgeElMobile.style.display = totalQty > 0 ? 'flex' : 'none';
+  }
+  if (floatingBadge) {
+    floatingBadge.textContent = totalQty;
+    floatingBadge.style.display = totalQty > 0 ? 'flex' : 'none';
   }
 }
 
@@ -207,5 +220,30 @@ document.addEventListener('DOMContentLoaded', () => {
         closeCart();
       }
     });
+  }
+
+  // Event delegation for data-add-id hooks
+  document.body.addEventListener('click', (e) => {
+    const target = e.target.closest('[data-add-id]');
+    if (target) {
+      const id = parseInt(target.getAttribute('data-add-id'));
+      if (!isNaN(id)) addToCart(id);
+    }
+  });
+
+  // Reveal-on-scroll
+  const toReveal = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && toReveal.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    toReveal.forEach((el) => io.observe(el));
+  } else {
+    toReveal.forEach((el) => el.classList.add('in-view'));
   }
 });

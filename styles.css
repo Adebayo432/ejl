@@ -33,6 +33,85 @@
     font-weight: 500;
 }
 
+/* Global background to match blue/black/white aesthetic */
+body.bg-white {
+    background-color: #f6f9ff !important; /* soft blue-tinted white */
+}
+
+/* Floating Cart Button */
+.floating-cart {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 9999px;
+    background-color: #1565D8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(21, 101, 216, 0.35);
+    z-index: 999;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-cart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(21, 101, 216, 0.45);
+}
+
+.floating-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 22px;
+    height: 22px;
+    background: #0b48a3;
+    color: #fff;
+    border-radius: 9999px;
+    font-size: 12px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Reveal on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Bounce animation when adding to cart */
+@keyframes cart-bounce {
+    0% { transform: translateY(0); }
+    30% { transform: translateY(-10px); }
+    60% { transform: translateY(0); }
+    85% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+}
+
+.bounce {
+    animation: cart-bounce 600ms ease;
+}
+
+/* Luxurious image glow */
+.lux-glow {
+    transition: box-shadow 300ms ease, transform 300ms ease;
+}
+
+.lux-glow:hover {
+    box-shadow: 0 12px 30px rgba(21, 101, 216, 0.25);
+    transform: translateY(-2px);
+}
+
 .border-b {
     position: sticky;
     top: 0;

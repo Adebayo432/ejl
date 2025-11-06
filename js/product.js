@@ -67,6 +67,7 @@ function renderProduct() {
   const addToCartBtn = document.getElementById('addToCartBtn');
   if (addToCartBtn) {
     addToCartBtn.setAttribute('data-product-id', currentProduct.id);
+    addToCartBtn.setAttribute('data-add-id', String(currentProduct.id));
   }
 }
 
@@ -100,10 +101,10 @@ function renderAllProducts() {
   if (!container) return;
 
   container.innerHTML = PRODUCTS.map(product => `
-    <a href="product.html?id=${product.id}" class="group">
+    <a href="product.html?id=${product.id}" class="group reveal">
       <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
         <div class="aspect-square overflow-hidden">
-          <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 lux-glow">
         </div>
         <div class="p-4">
           <h3 class="text-sm md:text-base font-semibold mb-2 text-gray-900 group-hover:text-ejblue transition-colors">${product.name}</h3>
