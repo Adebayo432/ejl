@@ -34,17 +34,23 @@
         <a href="index.html" class="hover:text-ejblue">Home</a>
         <button onclick="openCart()" class="relative p-2 hover:text-ejblue transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
-          <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-ejblue text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" style="display: none;">0</span>
+          <span id="cartCountBadge"
+            class="absolute -top-1 -right-1 bg-ejblue text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+            style="display: none;">0</span>
         </button>
       </nav>
       <div class="md:hidden">
         <button onclick="openCart()" class="relative p-2 hover:text-ejblue transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
-          <span id="cartCountBadgeMobile" class="absolute -top-1 -right-1 bg-ejblue text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" style="display: none;">0</span>
+          <span id="cartCountBadgeMobile"
+            class="absolute -top-1 -right-1 bg-ejblue text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+            style="display: none;">0</span>
         </button>
       </div>
     </div>
@@ -102,7 +108,8 @@
   </main>
 
   <!-- Cart Modal -->
-  <div id="cartModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end md:items-center justify-center p-4">
+  <div id="cartModal"
+    class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end md:items-center justify-center p-4">
     <div class="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-hidden flex flex-col">
       <div class="flex items-center justify-between p-4 border-b">
         <h2 class="text-lg md:text-xl font-semibold">Shopping Cart</h2>
@@ -120,7 +127,9 @@
           <span class="text-sm md:text-base font-medium">Total:</span>
           <span class="text-lg md:text-xl font-semibold">₦<span id="cartTotal">0</span></span>
         </div>
-        <button id="checkoutBtn" onclick="checkout()" class="w-full bg-ejblue text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors" style="display: none;">
+        <button id="checkoutBtn" onclick="checkout()"
+          class="w-full bg-ejblue text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          style="display: none;">
           Checkout via WhatsApp
         </button>
         <button onclick="clearCart()" class="w-full mt-2 text-gray-600 text-sm hover:text-gray-800">
@@ -135,11 +144,16 @@
       <div class="font-light">EJ Luxe — Wear your mood, feel the luxe ❤️</div>
       <div class="text-center md:text-right font-light">
         <div>Follow us on TikTok: <a href="https://www.tiktok.com/@ejluxe0" target="_blank"
-          class="text-white hover:underline">@Dripped_in_ejl</a></div>
+            class="text-white hover:underline">@Dripped_in_ejl</a></div>
         <p class="mt-1">Copyright © 2025 | Developed by Adebayo</p>
-        <div class="mt-1">Message Adebayo on WhatsApp: <a href="https://wa.me/2349155568584?text=Hello%2C%20I%20texted%20you%20from%20EJ%20luxe%20website%2C%20I" target="_blank" class="text-white hover:underline">Click here</a></div>
+        <div class="mt-1">Message Adebayo on WhatsApp: <a
+            href="https://wa.me/2349155568584?text=Hello%2C%20I%20texted%20you%20from%20EJ%20luxe%20website%2C%20I"
+            target="_blank" class="text-white hover:underline">Click here</a></div>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
   </footer>
 
   <script src="js/main.js"></script>
@@ -147,4 +161,3 @@
 </body>
 
 </html>
-
