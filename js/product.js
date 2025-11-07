@@ -2,15 +2,37 @@
 let currentProduct = null;
 
 async function loadProduct() {
-  // Get product ID from URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const productId = parseInt(urlParams.get('id')) || 1;
-
   // Wait for products to load
   while (PRODUCTS.length === 0) {
     await new Promise(resolve => setTimeout(resolve, 100));
   }
 
+  // Get product ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = parseInt(urlParams.get('id'));
+
+  // If no ID, show all products (products listing page)
+  if (!productId) {
+    renderAllProducts();
+    // Hide product detail section
+    const productContent = document.getElementById('productContent');
+    if (productContent) {
+      productContent.style.display = 'none';
+    }
+    // Hide related products section
+    const relatedProducts = document.getElementById('relatedProducts');
+    if (relatedProducts) {
+      relatedProducts.style.display = 'none';
+    }
+    // Show products listing
+    const productsListing = document.getElementById('productsListing');
+    if (productsListing) {
+      productsListing.style.display = 'block';
+    }
+    return;
+  }
+
+  // Show product detail
   currentProduct = PRODUCTS.find(p => p.id === productId);
   
   if (!currentProduct) {
@@ -19,6 +41,22 @@ async function loadProduct() {
 
   renderProduct();
   renderAllProducts();
+  
+  // Show product detail section
+  const productContent = document.getElementById('productContent');
+  if (productContent) {
+    productContent.style.display = 'grid';
+  }
+  // Show related products section
+  const relatedProducts = document.getElementById('relatedProducts');
+  if (relatedProducts) {
+    relatedProducts.style.display = 'block';
+  }
+  // Hide products listing
+  const productsListing = document.getElementById('productsListing');
+  if (productsListing) {
+    productsListing.style.display = 'none';
+  }
 }
 
 function renderProduct() {
@@ -53,7 +91,7 @@ function renderProduct() {
   const thumbnailContainer = document.getElementById('thumbnailImages');
   if (thumbnailContainer) {
     thumbnailContainer.innerHTML = currentProduct.images.map((img, index) => `
-      <button onclick="changeMainImage('${img}', ${index})" class="aspect-square overflow-hidden rounded-md border-2 border-gray-200 hover:border-ejblue transition-colors">
+      <button onclick="changeMainImage('${img}', ${index})" class="aspect-square overflow-hidden rounded-md border-2 border-gray-600 hover:border-ejpink transition-colors">
         <img src="${img}" alt="${currentProduct.name} ${index + 1}" class="w-full h-full object-cover">
       </button>
     `).join('');
@@ -62,11 +100,21 @@ function renderProduct() {
   // Update buy now link
   const buyNowLink = document.getElementById('buyNowLink');
   if (buyNowLink) {
-    let message = `Hello, I texted you from your website, I want to buy the ${currentProduct.name}`;
-    if (currentProduct.sizes && currentProduct.sizes.length > 0) {
-      message += ' (Size selection available on product page)';
-    }
-    buyNowLink.href = `https://wa.me/2347012357572?text=${encodeURIComponent(message)}`;
+    buyNowLink.onclick = function(e) {
+      e.preventDefault();
+      let message = `Hello, I texted you from your website, I want to buy the ${currentProduct.name}`;
+      if (currentProduct.sizes && currentProduct.sizes.length > 0) {
+        if (selectedSize) {
+          message += ` (Size: ${selectedSize})`;
+        } else {
+          alert('Please select a size first');
+          return false;
+        }
+      }
+      const whatsappUrl = `https://wa.me/2347012357572?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+      return false;
+    };
   }
 
   // Update add to cart button
@@ -144,11 +192,11 @@ function changeMainImage(imgSrc, index) {
   const thumbnails = document.querySelectorAll('#thumbnailImages button');
   thumbnails.forEach((btn, i) => {
     if (i === index) {
-      btn.classList.add('border-ejblue');
-      btn.classList.remove('border-gray-200');
+      btn.classList.add('border-ejpink');
+      btn.classList.remove('border-gray-600');
     } else {
-      btn.classList.remove('border-ejblue');
-      btn.classList.add('border-gray-200');
+      btn.classList.remove('border-ejpink');
+      btn.classList.add('border-gray-600');
     }
   });
 }
@@ -171,22 +219,45 @@ function addToCartFromPage() {
 
 function renderAllProducts() {
   const container = document.getElementById('allProducts');
-  if (!container) return;
-
-  container.innerHTML = PRODUCTS.map(product => `
-    <a href="product.html?id=${product.id}" class="group reveal">
-      <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-        <div class="aspect-square overflow-hidden">
+  const relatedContainer = document.getElementById('relatedProductsList');
+  
+  const productHTML = PRODUCTS.map(product => `
+    <a href="product.html?id=${product.id}" class="group">
+      <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all border-2 border-gray-600 hover:border-ejpink">
+        <div class="aspect-square overflow-hidden bg-gray-900">
           <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 lux-glow">
         </div>
-        <div class="p-4">
-          <h3 class="text-sm md:text-base font-semibold mb-2 text-gray-900 group-hover:text-ejblue transition-colors">${product.name}</h3>
-          <p class="text-gray-600 text-xs md:text-sm font-light mb-3 line-clamp-2">${product.description}</p>
-          <div class="text-base md:text-lg font-semibold text-ejblue">₦${product.price.toLocaleString()}</div>
+        <div class="p-4 bg-gray-800">
+          <h3 class="text-sm md:text-base font-semibold mb-2 text-white group-hover:text-ejpink transition-colors">${product.name}</h3>
+          <p class="text-gray-300 text-xs md:text-sm font-light mb-3 line-clamp-2">${product.description}</p>
+          <div class="text-base md:text-lg font-semibold text-ejpink">₦${product.price.toLocaleString()}</div>
         </div>
       </div>
     </a>
   `).join('');
+
+  if (container) {
+    container.innerHTML = productHTML;
+  }
+  
+  // For related products, show all except current product
+  if (relatedContainer && currentProduct) {
+    const relatedProducts = PRODUCTS.filter(p => p.id !== currentProduct.id);
+    relatedContainer.innerHTML = relatedProducts.map(product => `
+      <a href="product.html?id=${product.id}" class="group">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all border-2 border-gray-600 hover:border-ejpink">
+          <div class="aspect-square overflow-hidden bg-gray-900">
+            <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 lux-glow">
+          </div>
+          <div class="p-4 bg-gray-800">
+            <h3 class="text-sm md:text-base font-semibold mb-2 text-white group-hover:text-ejpink transition-colors">${product.name}</h3>
+            <p class="text-gray-300 text-xs md:text-sm font-light mb-3 line-clamp-2">${product.description}</p>
+            <div class="text-base md:text-lg font-semibold text-ejpink">₦${product.price.toLocaleString()}</div>
+          </div>
+        </div>
+      </a>
+    `).join('');
+  }
 }
 
 // Initialize when DOM is ready
