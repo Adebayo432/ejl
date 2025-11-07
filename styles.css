@@ -118,12 +118,14 @@ body.bg-ejblack {
     padding: 0px;
     margin: 0;
     right: 0;
-    /* Dark theme with subtle gradient */
-    background: linear-gradient(180deg, #0B0B0B 0%, #1a1a1a 100%);
+    /* Transparent/semi-transparent to blend with hero image */
+    background: rgba(11, 11, 11, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 20, 147, 0.2);
     left: 0;
     z-index: 40;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .border-b div {

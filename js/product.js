@@ -24,6 +24,9 @@ async function loadProduct() {
 function renderProduct() {
   if (!currentProduct) return;
 
+  // Reset selected size when product changes
+  selectedSize = null;
+
   // Update page title
   document.title = `${currentProduct.name} — EJ Luxe`;
 
@@ -77,24 +80,32 @@ function renderProduct() {
   const sizeSelector = document.getElementById('sizeSelector');
   const sizeOptions = document.getElementById('sizeOptions');
   
-  if (currentProduct.sizes && Array.isArray(currentProduct.sizes) && currentProduct.sizes.length > 0) {
+  // Check if product has sizes property
+  const hasSizes = currentProduct.sizes && Array.isArray(currentProduct.sizes) && currentProduct.sizes.length > 0;
+  
+  if (hasSizes) {
     if (sizeSelector) {
       sizeSelector.classList.remove('hidden');
     }
     if (sizeOptions) {
-      sizeOptions.innerHTML = currentProduct.sizes.map(size => `
-        <button 
-          onclick="selectSize('${size}')" 
-          data-size="${size}"
-          class="size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejpink hover:text-ejpink"
-        >
-          ${size}
-        </button>
-      `).join('');
+      // Clear any existing content
+      sizeOptions.innerHTML = '';
+      // Add size buttons
+      currentProduct.sizes.forEach(size => {
+        const button = document.createElement('button');
+        button.textContent = size;
+        button.setAttribute('data-size', size);
+        button.className = 'size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejpink hover:text-ejpink';
+        button.onclick = () => selectSize(size);
+        sizeOptions.appendChild(button);
+      });
     }
   } else {
     if (sizeSelector) {
       sizeSelector.classList.add('hidden');
+    }
+    if (sizeOptions) {
+      sizeOptions.innerHTML = '';
     }
   }
 }
