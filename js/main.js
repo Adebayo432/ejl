@@ -17,7 +17,8 @@ async function loadProducts() {
         name: "POSITHIEF T-shirt",
         price: 24999,
         description: "250g luxury T-shirt crafted for comfort and confident style. Minimal details, maximum presence.",
-        images: ["assets/t1.jpg", "assets/t2.jpg", "assets/t3.jpg", "assets/t4.jpg"]
+        images: ["assets/t1.jpg", "assets/t2.jpg", "assets/t3.jpg", "assets/t4.jpg"],
+        sizes: ["X", "2XL", "3XL"]
       },
       {
         id: 2,
@@ -51,12 +52,22 @@ function saveCart() {
   renderCart();
 }
 
-function addToCart(id) {
-  const item = cart.find(i => i.id === id);
+function addToCart(id, size = null) {
+  // Create unique key for cart item (id + size if size exists)
+  const cartKey = size ? `${id}-${size}` : id;
+  const item = cart.find(i => {
+    const itemKey = i.size ? `${i.id}-${i.size}` : i.id;
+    return itemKey === cartKey;
+  });
+  
   if (item) {
     item.qty++;
   } else {
-    cart.push({ id: id, qty: 1 });
+    const newItem = { id: id, qty: 1 };
+    if (size) {
+      newItem.size = size;
+    }
+    cart.push(newItem);
   }
   saveCart();
 
@@ -76,7 +87,7 @@ function getCartItemsDetailed() {
   return cart.map(ci => {
     const p = PRODUCTS.find(p => p.id === ci.id);
     if (!p) return null;
-    return { ...p, qty: ci.qty, lineTotal: p.price * ci.qty };
+    return { ...p, qty: ci.qty, size: ci.size || null, lineTotal: p.price * ci.qty };
   }).filter(item => item !== null);
 }
 
@@ -85,12 +96,27 @@ function clearCart() {
   saveCart();
 }
 
-function changeQty(id, delta) {
-  const it = cart.find(i => i.id === id);
+function changeQty(cartKey, delta) {
+  // cartKey can be either a number (id) or a string (id-size)
+  let it;
+  if (typeof cartKey === 'string' && cartKey.includes('-')) {
+    const [id, size] = cartKey.split('-');
+    it = cart.find(i => i.id === parseInt(id) && i.size === size);
+  } else {
+    const id = typeof cartKey === 'string' ? parseInt(cartKey) : cartKey;
+    it = cart.find(i => i.id === id && !i.size);
+  }
+  
   if (!it) return;
   it.qty += delta;
   if (it.qty <= 0) {
-    cart = cart.filter(x => x.id !== id);
+    if (typeof cartKey === 'string' && cartKey.includes('-')) {
+      const [id, size] = cartKey.split('-');
+      cart = cart.filter(x => !(x.id === parseInt(id) && x.size === size));
+    } else {
+      const id = typeof cartKey === 'string' ? parseInt(cartKey) : cartKey;
+      cart = cart.filter(x => !(x.id === id && !x.size));
+    }
   }
   saveCart();
 }
@@ -128,22 +154,26 @@ function renderCart() {
     return;
   }
 
-  listEl.innerHTML = items.map(it => `
+  listEl.innerHTML = items.map((it, index) => {
+    const cartItem = cart[index];
+    const cartKey = cartItem.size ? `${cartItem.id}-${cartItem.size}` : cartItem.id;
+    return `
     <div class="flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200 mb-2">
       <div class="flex items-center gap-3 flex-1">
         <img src="${it.images[0]}" class="w-16 h-16 object-cover rounded" alt="${it.name}">
         <div class="flex-1 min-w-0">
-          <div class="font-medium text-sm text-gray-900">${it.name}</div>
+          <div class="font-medium text-sm text-gray-900">${it.name}${it.size ? ` - Size: ${it.size}` : ''}</div>
           <div class="text-xs text-gray-600">₦${it.price.toLocaleString()}</div>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button class="px-2 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50" onclick="changeQty(${it.id}, -1)">-</button>
+        <button class="px-2 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50" onclick="changeQty('${cartKey}', -1)">-</button>
         <div class="text-sm w-8 text-center">${it.qty}</div>
-        <button class="px-2 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50" onclick="changeQty(${it.id}, 1)">+</button>
+        <button class="px-2 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50" onclick="changeQty('${cartKey}', 1)">+</button>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   const total = items.reduce((s, it) => s + it.lineTotal, 0);
   const totalEl = document.getElementById('cartTotal');
@@ -192,7 +222,8 @@ function checkout() {
   // Build WhatsApp message
   let message = 'Hello, I would like to purchase the following items:\n\n';
   items.forEach(item => {
-    message += `${item.name} x${item.qty} - ₦${item.lineTotal.toLocaleString()}\n`;
+    const sizeText = item.size ? ` (Size: ${item.size})` : '';
+    message += `${item.name}${sizeText} x${item.qty} - ₦${item.lineTotal.toLocaleString()}\n`;
   });
   const total = items.reduce((s, it) => s + it.lineTotal, 0);
   message += `\nTotal: ₦${total.toLocaleString()}`;

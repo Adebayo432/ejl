@@ -7,7 +7,19 @@
   <title>Product — EJ Luxe</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { theme: { extend: { colors: { ejblue: '#1565D8', ejblack: '#0B0B0B' } } } };
+    tailwind.config = { 
+      theme: { 
+        extend: { 
+          colors: { 
+            ejblue: '#1565D8', 
+            ejblack: '#0B0B0B',
+            ejpink: '#FF1493',
+            ejdark: '#1a1a1a',
+            ejdarkgray: '#2a2a2a'
+          } 
+        } 
+      } 
+    };
   </script>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap"
@@ -79,8 +91,17 @@
         </div>
 
         <div class="space-y-4">
+          <!-- Size Selection (only shown if product has sizes) -->
+          <div id="sizeSelector" class="hidden">
+            <label class="text-sm md:text-base font-semibold mb-2 block">Size:</label>
+            <div id="sizeOptions" class="flex gap-2 flex-wrap">
+              <!-- Size buttons will be rendered here -->
+            </div>
+            <p id="sizeWarning" class="text-red-500 text-sm mt-2 hidden">Please select a size</p>
+          </div>
+          
           <div class="flex gap-3">
-            <button id="addToCartBtn" class="add-to-cart-btn flex-1" data-add-id="1">
+            <button id="addToCartBtn" onclick="addToCartFromPage()" class="add-to-cart-btn flex-1" data-add-id="1">
               Add to Cart
             </button>
             <a id="buyNowLink" href="#" target="_blank" class="buy-now-btn flex-1 text-center">

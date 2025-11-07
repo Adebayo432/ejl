@@ -59,8 +59,11 @@ function renderProduct() {
   // Update buy now link
   const buyNowLink = document.getElementById('buyNowLink');
   if (buyNowLink) {
-    const message = encodeURIComponent(`Hello, I texted you from your website, I want to buy the ${currentProduct.name}`);
-    buyNowLink.href = `https://wa.me/2347012357572?text=${message}`;
+    let message = `Hello, I texted you from your website, I want to buy the ${currentProduct.name}`;
+    if (currentProduct.sizes && currentProduct.sizes.length > 0) {
+      message += ' (Size selection available on product page)';
+    }
+    buyNowLink.href = `https://wa.me/2347012357572?text=${encodeURIComponent(message)}`;
   }
 
   // Update add to cart button
@@ -69,6 +72,53 @@ function renderProduct() {
     addToCartBtn.setAttribute('data-product-id', currentProduct.id);
     addToCartBtn.setAttribute('data-add-id', String(currentProduct.id));
   }
+
+  // Render size selector if product has sizes
+  const sizeSelector = document.getElementById('sizeSelector');
+  const sizeOptions = document.getElementById('sizeOptions');
+  
+  if (currentProduct.sizes && Array.isArray(currentProduct.sizes) && currentProduct.sizes.length > 0) {
+    if (sizeSelector) {
+      sizeSelector.classList.remove('hidden');
+    }
+    if (sizeOptions) {
+      sizeOptions.innerHTML = currentProduct.sizes.map(size => `
+        <button 
+          onclick="selectSize('${size}')" 
+          data-size="${size}"
+          class="size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejpink hover:text-ejpink"
+        >
+          ${size}
+        </button>
+      `).join('');
+    }
+  } else {
+    if (sizeSelector) {
+      sizeSelector.classList.add('hidden');
+    }
+  }
+}
+
+let selectedSize = null;
+
+function selectSize(size) {
+  selectedSize = size;
+  
+  // Update button styles
+  const sizeButtons = document.querySelectorAll('.size-btn');
+  sizeButtons.forEach(btn => {
+    if (btn.getAttribute('data-size') === size) {
+      btn.classList.add('border-ejpink', 'bg-ejpink', 'text-white');
+      btn.classList.remove('border-gray-300', 'hover:border-ejpink', 'hover:text-ejpink');
+    } else {
+      btn.classList.remove('border-ejpink', 'bg-ejpink', 'text-white');
+      btn.classList.add('border-gray-300', 'hover:border-ejpink', 'hover:text-ejpink');
+    }
+  });
+  
+  // Hide warning if shown
+  const sizeWarning = document.getElementById('sizeWarning');
+  if (sizeWarning) sizeWarning.classList.add('hidden');
 }
 
 function changeMainImage(imgSrc, index) {
@@ -91,7 +141,17 @@ function changeMainImage(imgSrc, index) {
 }
 
 function addToCartFromPage() {
-  if (currentProduct) {
+  if (!currentProduct) return;
+  
+  // Check if size is required
+  if (currentProduct.sizes && currentProduct.sizes.length > 0) {
+    if (!selectedSize) {
+      const sizeWarning = document.getElementById('sizeWarning');
+      if (sizeWarning) sizeWarning.classList.remove('hidden');
+      return;
+    }
+    addToCart(currentProduct.id, selectedSize);
+  } else {
     addToCart(currentProduct.id);
   }
 }
