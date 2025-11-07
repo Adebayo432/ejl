@@ -91,7 +91,7 @@ function renderProduct() {
   const thumbnailContainer = document.getElementById('thumbnailImages');
   if (thumbnailContainer) {
     thumbnailContainer.innerHTML = currentProduct.images.map((img, index) => `
-      <button onclick="changeMainImage('${img}', ${index})" class="aspect-square overflow-hidden rounded-md border-2 border-gray-600 hover:border-ejpink transition-colors">
+      <button onclick="changeMainImage('${img}', ${index})" class="aspect-square overflow-hidden rounded-md border-2 border-gray-600 hover:border-ejblue transition-colors">
         <img src="${img}" alt="${currentProduct.name} ${index + 1}" class="w-full h-full object-cover">
       </button>
     `).join('');
@@ -121,7 +121,8 @@ function renderProduct() {
   const addToCartBtn = document.getElementById('addToCartBtn');
   if (addToCartBtn) {
     addToCartBtn.setAttribute('data-product-id', currentProduct.id);
-    addToCartBtn.setAttribute('data-add-id', String(currentProduct.id));
+    // Remove data-add-id to prevent double event handling
+    addToCartBtn.removeAttribute('data-add-id');
   }
 
   // Render size selector if product has sizes
@@ -144,7 +145,7 @@ function renderProduct() {
         const button = document.createElement('button');
         button.textContent = size;
         button.setAttribute('data-size', size);
-        button.className = 'size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejpink hover:text-ejpink text-white';
+        button.className = 'size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejblue hover:text-ejblue text-white';
         button.onclick = () => selectSize(size);
         sizeOptions.appendChild(button);
       });
@@ -169,11 +170,11 @@ function selectSize(size) {
   const sizeButtons = document.querySelectorAll('.size-btn');
   sizeButtons.forEach(btn => {
     if (btn.getAttribute('data-size') === size) {
-      btn.classList.add('border-ejpink', 'bg-ejpink', 'text-white');
-      btn.classList.remove('border-gray-300', 'hover:border-ejpink', 'hover:text-ejpink');
+      btn.classList.add('border-ejblue', 'bg-ejblue', 'text-white');
+      btn.classList.remove('border-gray-300', 'hover:border-ejblue', 'hover:text-ejblue');
     } else {
-      btn.classList.remove('border-ejpink', 'bg-ejpink', 'text-white');
-      btn.classList.add('border-gray-300', 'hover:border-ejpink', 'hover:text-ejpink');
+      btn.classList.remove('border-ejblue', 'bg-ejblue', 'text-white');
+      btn.classList.add('border-gray-300', 'hover:border-ejblue', 'hover:text-ejblue');
     }
   });
   
@@ -192,16 +193,21 @@ function changeMainImage(imgSrc, index) {
   const thumbnails = document.querySelectorAll('#thumbnailImages button');
   thumbnails.forEach((btn, i) => {
     if (i === index) {
-      btn.classList.add('border-ejpink');
+      btn.classList.add('border-ejblue');
       btn.classList.remove('border-gray-600');
     } else {
-      btn.classList.remove('border-ejpink');
+      btn.classList.remove('border-ejblue');
       btn.classList.add('border-gray-600');
     }
   });
 }
 
-function addToCartFromPage() {
+function addToCartFromPage(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  
   if (!currentProduct) return;
   
   // Check if size is required
@@ -215,6 +221,8 @@ function addToCartFromPage() {
   } else {
     addToCart(currentProduct.id);
   }
+  
+  return false;
 }
 
 function renderAllProducts() {
@@ -223,14 +231,14 @@ function renderAllProducts() {
   
   const productHTML = PRODUCTS.map(product => `
     <a href="product.html?id=${product.id}" class="group">
-      <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all border-2 border-gray-600 hover:border-ejpink">
+      <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all border-2 border-gray-600 hover:border-ejblue">
         <div class="aspect-square overflow-hidden bg-gray-900">
           <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 lux-glow">
         </div>
         <div class="p-4 bg-gray-800">
-          <h3 class="text-sm md:text-base font-semibold mb-2 text-white group-hover:text-ejpink transition-colors">${product.name}</h3>
+          <h3 class="text-sm md:text-base font-semibold mb-2 text-white group-hover:text-ejblue transition-colors">${product.name}</h3>
           <p class="text-gray-300 text-xs md:text-sm font-light mb-3 line-clamp-2">${product.description}</p>
-          <div class="text-base md:text-lg font-semibold text-ejpink">₦${product.price.toLocaleString()}</div>
+          <div class="text-base md:text-lg font-semibold text-ejblue">₦${product.price.toLocaleString()}</div>
         </div>
       </div>
     </a>
@@ -245,14 +253,14 @@ function renderAllProducts() {
     const relatedProducts = PRODUCTS.filter(p => p.id !== currentProduct.id);
     relatedContainer.innerHTML = relatedProducts.map(product => `
       <a href="product.html?id=${product.id}" class="group">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all border-2 border-gray-600 hover:border-ejpink">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all border-2 border-gray-600 hover:border-ejblue">
           <div class="aspect-square overflow-hidden bg-gray-900">
             <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 lux-glow">
           </div>
           <div class="p-4 bg-gray-800">
-            <h3 class="text-sm md:text-base font-semibold mb-2 text-white group-hover:text-ejpink transition-colors">${product.name}</h3>
+            <h3 class="text-sm md:text-base font-semibold mb-2 text-white group-hover:text-ejblue transition-colors">${product.name}</h3>
             <p class="text-gray-300 text-xs md:text-sm font-light mb-3 line-clamp-2">${product.description}</p>
-            <div class="text-base md:text-lg font-semibold text-ejpink">₦${product.price.toLocaleString()}</div>
+            <div class="text-base md:text-lg font-semibold text-ejblue">₦${product.price.toLocaleString()}</div>
           </div>
         </div>
       </a>
