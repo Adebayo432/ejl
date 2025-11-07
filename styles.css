@@ -188,12 +188,13 @@ body.bg-ejblack {
 }
 
 .footer {
-    background-color: rgb(93, 93, 236);
+    font-weight: 700;
+    background-color: rgb(56, 56, 56);
     color: white;
 }
 
 .footer a {
-    color: rgb(18, 1, 18);
+    color: #FF1493;
     font-weight: 900;
     text-decoration: underline;
 }
