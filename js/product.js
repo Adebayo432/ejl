@@ -86,6 +86,7 @@ function renderProduct() {
   if (hasSizes) {
     if (sizeSelector) {
       sizeSelector.classList.remove('hidden');
+      sizeSelector.style.display = 'block'; // Ensure it's visible
     }
     if (sizeOptions) {
       // Clear any existing content
@@ -95,7 +96,7 @@ function renderProduct() {
         const button = document.createElement('button');
         button.textContent = size;
         button.setAttribute('data-size', size);
-        button.className = 'size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejpink hover:text-ejpink';
+        button.className = 'size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejpink hover:text-ejpink text-white';
         button.onclick = () => selectSize(size);
         sizeOptions.appendChild(button);
       });
@@ -103,6 +104,7 @@ function renderProduct() {
   } else {
     if (sizeSelector) {
       sizeSelector.classList.add('hidden');
+      sizeSelector.style.display = 'none';
     }
     if (sizeOptions) {
       sizeOptions.innerHTML = '';

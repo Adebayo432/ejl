@@ -70,8 +70,18 @@
         <div class="flex gap-4 items-center">
           <span class="text-lg md:text-xl font-medium">₦24,999.00</span>
         </div>
+        <!-- Size Selection for POSITHIEF T-shirt -->
+        <div id="posithiefSizeSelector" class="mt-4 mb-4">
+          <label class="text-sm md:text-base font-semibold mb-2 block text-gray-900">Size:</label>
+          <div id="posithiefSizeOptions" class="flex gap-2 flex-wrap">
+            <button onclick="selectSizeForProduct(1, 'X')" data-size="X" class="posithief-size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejblue hover:text-ejblue">X</button>
+            <button onclick="selectSizeForProduct(1, '2XL')" data-size="2XL" class="posithief-size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejblue hover:text-ejblue">2XL</button>
+            <button onclick="selectSizeForProduct(1, '3XL')" data-size="3XL" class="posithief-size-btn px-4 py-2 border-2 border-gray-300 rounded-lg text-sm md:text-base font-medium transition-all hover:border-ejblue hover:text-ejblue">3XL</button>
+          </div>
+          <p id="posithiefSizeWarning" class="text-red-500 text-sm mt-2 hidden">Please select a size</p>
+        </div>
         <div class="mt-4 flex gap-3">
-          <button data-add-id="1" class="add-to-cart-btn">Add to Cart</button>
+          <button onclick="addToCartWithSize(1)" class="add-to-cart-btn">Add to Cart</button>
           <a href="https://wa.me/2347012357572?text=Hello%2C%20I%20texted%20you%20from%20your%20website%2C%20I%20want%20to%20buy%20the%20POSITHIEF%20T-Shirt" target="_blank" class="buy-now-btn">Buy now</a>
         </div>
       </div>
@@ -250,6 +260,45 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Size selection for POSITHIEF T-shirt on products page
+    let selectedSizeForProduct = null;
+
+    function selectSizeForProduct(productId, size) {
+      if (productId === 1) { // POSITHIEF T-shirt
+        selectedSizeForProduct = size;
+        
+        // Update button styles
+        const sizeButtons = document.querySelectorAll('.posithief-size-btn');
+        sizeButtons.forEach(btn => {
+          if (btn.getAttribute('data-size') === size) {
+            btn.classList.add('border-ejblue', 'bg-ejblue', 'text-white');
+            btn.classList.remove('border-gray-300', 'hover:border-ejblue', 'hover:text-ejblue');
+          } else {
+            btn.classList.remove('border-ejblue', 'bg-ejblue', 'text-white');
+            btn.classList.add('border-gray-300', 'hover:border-ejblue', 'hover:text-ejblue');
+          }
+        });
+        
+        // Hide warning if shown
+        const sizeWarning = document.getElementById('posithiefSizeWarning');
+        if (sizeWarning) sizeWarning.classList.add('hidden');
+      }
+    }
+
+    function addToCartWithSize(productId) {
+      if (productId === 1) { // POSITHIEF T-shirt
+        if (!selectedSizeForProduct) {
+          const sizeWarning = document.getElementById('posithiefSizeWarning');
+          if (sizeWarning) sizeWarning.classList.remove('hidden');
+          return;
+        }
+        addToCart(productId, selectedSizeForProduct);
+      } else {
+        addToCart(productId);
+      }
+    }
+  </script>
 </body>
 
 </html>
