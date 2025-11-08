@@ -206,19 +206,23 @@ body.bg-ejblack {
 }
 
 .brand-name:hover {
-    color: blue;
+    color: rgb(63, 63, 141);
 }
 
 .footer {
-    font-weight: 700;
+    font-weight: 500;
     background-color: rgb(56, 56, 56);
     color: white;
 }
 
 .footer a {
     color: blue;
-    font-weight: 900;
+    font-weight: 700;
     text-decoration: underline;
+}
+
+div.flex.items-center.gap-2 {
+    color: #0B0B0B;
 }
 
 /* Cart Notification */
@@ -226,7 +230,7 @@ body.bg-ejblack {
     position: fixed;
     top: 80px;
     right: 20px;
-    background-color: #1565D8;
+    background-color: blue;
     color: white;
     padding: 12px 20px;
     border-radius: 8px;
@@ -245,7 +249,7 @@ body.bg-ejblack {
 }
 
 .check-out- {
-    color: blue
+    color: red;
 }
 
 ;
